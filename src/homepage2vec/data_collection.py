@@ -79,7 +79,7 @@ def take_screenshot(url, out_path, in_width=1920, in_height=1080, down_factor=3,
         options = webdriver.ChromeOptions()
         options.headless = True
 
-        driver = webdriver.Chrome('chromedriver', options=options)
+        driver = webdriver.Chrome(options=options)
 
         driver.set_page_load_timeout(timeout)
         driver.set_window_size(in_width, in_height)
@@ -114,7 +114,7 @@ def take_screenshot(url, out_path, in_width=1920, in_height=1080, down_factor=3,
         # convert the png into a jpeg of lesser dimensions and quality
         img = Image.open(out_path + '.png')
         img = img.convert('RGB')
-        img = img.resize((out_width, out_height), Image.ANTIALIAS)
+        img = img.resize((out_width, out_height), Image.LANCZOS)#ANTIALIAS)
         img.save(out_path + '.jpeg', optimize=True, quality=quality)
         os.remove(out_path + '.png')
         return out_path + '.jpeg'
